@@ -13,16 +13,10 @@
 		A51CA511284A63210065B915 /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51CA50F284A63210065B915 /* AspectVGrid.swift */; };
 		A51CA513284A632A0065B915 /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51CA512284A632A0065B915 /* Cardify.swift */; };
 		A51CA514284A632A0065B915 /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51CA512284A632A0065B915 /* Cardify.swift */; };
-		A51CA51A284A63420065B915 /* EmojiMemorizeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51CA515284A63420065B915 /* EmojiMemorizeViewModel.swift */; };
-		A51CA51B284A63420065B915 /* EmojiMemorizeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51CA515284A63420065B915 /* EmojiMemorizeViewModel.swift */; };
-		A51CA51C284A63420065B915 /* EmojiMemoryGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51CA516284A63420065B915 /* EmojiMemoryGameView.swift */; };
-		A51CA51D284A63420065B915 /* EmojiMemoryGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51CA516284A63420065B915 /* EmojiMemoryGameView.swift */; };
-		A51CA51E284A63420065B915 /* MemorizeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51CA517284A63420065B915 /* MemorizeApp.swift */; };
-		A51CA51F284A63420065B915 /* MemorizeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51CA517284A63420065B915 /* MemorizeApp.swift */; };
+		A51CA51E284A63420065B915 /* SetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51CA517284A63420065B915 /* SetApp.swift */; };
+		A51CA51F284A63420065B915 /* SetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51CA517284A63420065B915 /* SetApp.swift */; };
 		A51CA520284A63420065B915 /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51CA518284A63420065B915 /* Pie.swift */; };
 		A51CA521284A63420065B915 /* Pie.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51CA518284A63420065B915 /* Pie.swift */; };
-		A51CA522284A63420065B915 /* EmojiMemorizeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51CA519284A63420065B915 /* EmojiMemorizeModel.swift */; };
-		A51CA523284A63420065B915 /* EmojiMemorizeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51CA519284A63420065B915 /* EmojiMemorizeModel.swift */; };
 		A51CA525284A65E60065B915 /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51CA524284A65E60065B915 /* Diamond.swift */; };
 		A51CA526284A65E60065B915 /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51CA524284A65E60065B915 /* Diamond.swift */; };
 		A51CA52B284A6DD00065B915 /* Squiggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A51CA52A284A6DD00065B915 /* Squiggle.swift */; };
@@ -42,11 +36,8 @@
 		A51CA4FD284A62810065B915 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		A51CA50F284A63210065B915 /* AspectVGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AspectVGrid.swift; path = ../../Memorize/Memorize/AspectVGrid.swift; sourceTree = "<group>"; };
 		A51CA512284A632A0065B915 /* Cardify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Cardify.swift; path = ../../Memorize/Memorize/Cardify.swift; sourceTree = "<group>"; };
-		A51CA515284A63420065B915 /* EmojiMemorizeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmojiMemorizeViewModel.swift; path = ../../Memorize/Memorize/EmojiMemorizeViewModel.swift; sourceTree = "<group>"; };
-		A51CA516284A63420065B915 /* EmojiMemoryGameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmojiMemoryGameView.swift; path = ../../Memorize/Memorize/EmojiMemoryGameView.swift; sourceTree = "<group>"; };
-		A51CA517284A63420065B915 /* MemorizeApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MemorizeApp.swift; path = ../../Memorize/Memorize/MemorizeApp.swift; sourceTree = "<group>"; };
+		A51CA517284A63420065B915 /* SetApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetApp.swift; path = ../../Memorize/Memorize/SetApp.swift; sourceTree = "<group>"; };
 		A51CA518284A63420065B915 /* Pie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Pie.swift; path = ../../Memorize/Memorize/Pie.swift; sourceTree = "<group>"; };
-		A51CA519284A63420065B915 /* EmojiMemorizeModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EmojiMemorizeModel.swift; path = ../../Memorize/Memorize/EmojiMemorizeModel.swift; sourceTree = "<group>"; };
 		A51CA524284A65E60065B915 /* Diamond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diamond.swift; sourceTree = "<group>"; };
 		A51CA52A284A6DD00065B915 /* Squiggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squiggle.swift; sourceTree = "<group>"; };
 		A51CA52D284A7E120065B915 /* SetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetModel.swift; sourceTree = "<group>"; };
@@ -86,13 +77,10 @@
 			children = (
 				A51CA50F284A63210065B915 /* AspectVGrid.swift */,
 				A51CA512284A632A0065B915 /* Cardify.swift */,
-				A51CA519284A63420065B915 /* EmojiMemorizeModel.swift */,
 				A51CA52D284A7E120065B915 /* SetModel.swift */,
-				A51CA515284A63420065B915 /* EmojiMemorizeViewModel.swift */,
 				A51CA533284A81D80065B915 /* SetGameView.swift */,
 				A51CA530284A80AF0065B915 /* SetViewModel.swift */,
-				A51CA516284A63420065B915 /* EmojiMemoryGameView.swift */,
-				A51CA517284A63420065B915 /* MemorizeApp.swift */,
+				A51CA517284A63420065B915 /* SetApp.swift */,
 				A51CA518284A63420065B915 /* Pie.swift */,
 				A51CA4F0284A62810065B915 /* Assets.xcassets */,
 				A51CA524284A65E60065B915 /* Diamond.swift */,
@@ -217,15 +205,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				A51CA531284A80AF0065B915 /* SetViewModel.swift in Sources */,
-				A51CA522284A63420065B915 /* EmojiMemorizeModel.swift in Sources */,
 				A51CA520284A63420065B915 /* Pie.swift in Sources */,
 				A51CA52E284A7E120065B915 /* SetModel.swift in Sources */,
-				A51CA51E284A63420065B915 /* MemorizeApp.swift in Sources */,
+				A51CA51E284A63420065B915 /* SetApp.swift in Sources */,
 				A51CA534284A81D80065B915 /* SetGameView.swift in Sources */,
 				A51CA52B284A6DD00065B915 /* Squiggle.swift in Sources */,
-				A51CA51C284A63420065B915 /* EmojiMemoryGameView.swift in Sources */,
 				A51CA525284A65E60065B915 /* Diamond.swift in Sources */,
-				A51CA51A284A63420065B915 /* EmojiMemorizeViewModel.swift in Sources */,
 				A51CA513284A632A0065B915 /* Cardify.swift in Sources */,
 				A51CA510284A63210065B915 /* AspectVGrid.swift in Sources */,
 			);
@@ -236,15 +221,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				A51CA532284A80AF0065B915 /* SetViewModel.swift in Sources */,
-				A51CA523284A63420065B915 /* EmojiMemorizeModel.swift in Sources */,
 				A51CA521284A63420065B915 /* Pie.swift in Sources */,
 				A51CA52F284A7E120065B915 /* SetModel.swift in Sources */,
-				A51CA51F284A63420065B915 /* MemorizeApp.swift in Sources */,
+				A51CA51F284A63420065B915 /* SetApp.swift in Sources */,
 				A51CA535284A81D80065B915 /* SetGameView.swift in Sources */,
 				A51CA52C284A6DD00065B915 /* Squiggle.swift in Sources */,
-				A51CA51D284A63420065B915 /* EmojiMemoryGameView.swift in Sources */,
 				A51CA526284A65E60065B915 /* Diamond.swift in Sources */,
-				A51CA51B284A63420065B915 /* EmojiMemorizeViewModel.swift in Sources */,
 				A51CA514284A632A0065B915 /* Cardify.swift in Sources */,
 				A51CA511284A63210065B915 /* AspectVGrid.swift in Sources */,
 			);

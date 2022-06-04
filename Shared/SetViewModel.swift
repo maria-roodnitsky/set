@@ -29,6 +29,10 @@ class SetViewModel: ObservableObject {
         return model.hand
     }
     
+    var discarded: Array<SetModel<String>.Card> {
+        return model.discarded
+    }
+    
     var lastCard: Int {
         return model.lastCard
     }
@@ -43,7 +47,7 @@ class SetViewModel: ObservableObject {
     func addToHand() {
         model.addToHand()
     }
-    
+
     func shuffle() {
         model.shuffle()
     }

@@ -13,7 +13,9 @@ struct SetGameView: View {
 
     @ObservedObject var game: SetViewModel
     @Namespace private var dealingNamespace
+    @Namespace private var discardingNamespace
     @State private var dealt = Set<Int>()
+    @State private var discarded = Set<Int>()
     
     // views
     
@@ -23,18 +25,16 @@ struct SetGameView: View {
                 Text("Set")
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
-//                HStack{
-//                    Text("Score: \(game.score)")
-//                }
                 gameBody
                 HStack{
                     newGameButton
                     Spacer()
-                    shuffleButton
+                    deckBody
+                    Spacer()
+                    discardBody
                 }
                 .padding(.horizontal)
             }
-            deckBody
         }
         .padding()
     }
@@ -44,21 +44,11 @@ struct SetGameView: View {
             if isUndealt(card) || (card.isMatched && !card.isSelected) {
                 Color.clear // makes a rectangle with clear color
             }
-            else if card.isSelected {
-                CardView(card: card)
-                .matchedGeometryEffect(id: card.id, in: dealingNamespace)
-                .padding(4)
-                .transition(AnyTransition.asymmetric(insertion: .identity, removal: .scale))
-                .zIndex(zIndex(of: card))
-                .onTapGesture {
-                    withAnimation{
-                        game.choose(card)
-                    }
-                }
-            } else {
+            else {
                 CardView(card: card)
                     .foregroundColor(card.color)
                     .matchedGeometryEffect(id: card.id, in: dealingNamespace)
+                    .matchedGeometryEffect(id: card.id, in: discardingNamespace)
                     .padding(4)
                     .transition(AnyTransition.asymmetric(insertion: .identity, removal: .scale))
                     .zIndex(zIndex(of: card))
@@ -75,6 +65,7 @@ struct SetGameView: View {
         Button(action: {
                 withAnimation {
                     dealt = []
+                    discarded = []
                     game.newGame()
                 }
             }, label: { Text("New Game") })
@@ -87,15 +78,45 @@ struct SetGameView: View {
     var deckBody: some View {
         ZStack {
             ForEach(game.cards.filter(isUndealt)) { card in
-                CardView(card: card)
-                    .matchedGeometryEffect(id: card.id, in: dealingNamespace)
-                    .transition(AnyTransition.asymmetric(insertion: .opacity, removal: .identity))
-                    .zIndex(zIndex(of: card))
+                ZStack{
+                    CardView(card: card)
+                        .matchedGeometryEffect(id: card.id, in: dealingNamespace)
+                        .transition(AnyTransition.asymmetric(insertion: .opacity, removal: .identity))
+                        .zIndex(zIndex(of: card))
+                    Color.red.cardify(isFaceUp: false, isSelected: false, cardColor: .red, unMatched: false) // makes a rectangle with clear color
+                }
             }
         }.frame(width: CardConstants.undealtWidth, height: CardConstants.undealtHeight)
         .foregroundColor(CardConstants.color)
         .onTapGesture {
             game.addToHand()
+            for card in game.hand {
+                withAnimation(dealAnimation(for: card)) {
+                    deal(card)
+                }
+            }
+        }
+    }
+    
+    var discardBody: some View {
+        ZStack {
+            ForEach(game.cards.filter(isDiscarded)) { card in
+                CardView(card: card)
+                    .matchedGeometryEffect(id: card.id, in: discardingNamespace)
+                    .transition(AnyTransition.asymmetric(insertion: .identity, removal: .identity))
+                    .zIndex(zIndex(of: card))
+            }
+        }.frame(width: CardConstants.undealtWidth, height: CardConstants.undealtHeight)
+        .foregroundColor(CardConstants.color)
+        .onChange(of: game.discarded) { _ in
+            for card in game.discarded {
+                withAnimation(dealAnimation(for: card)) {
+                   discard(card)
+                }
+            }
+            for _ in (1...3) {
+                game.addToHand()
+            }
             for card in game.hand {
                 withAnimation(dealAnimation(for: card)) {
                     deal(card)
@@ -114,7 +135,24 @@ struct SetGameView: View {
         !dealt.contains(card.id)
     }
     
+    private func discard(_ card: SetModel<String>.Card) {
+        discarded.insert(card.id)
+        print("card was discarded")
+    }
+    
+    private func isDiscarded(_ card: SetModel<String>.Card) -> Bool {
+        discarded.contains(card.id)
+    }
+    
     private func dealAnimation(for card: SetModel<String>.Card) -> Animation {
+        var delay = 0.0
+        if let index = game.cards.firstIndex(where: {$0.id == card.id}) {
+            delay = Double(index) * (CardConstants.totalDealDuration / Double(game.cards.count))
+        }
+        return Animation.easeInOut(duration: CardConstants.dealDuration).delay(delay)
+    }
+    
+    private func matchAnimation(for card: SetModel<String>.Card) -> Animation {
         var delay = 0.0
         if let index = game.cards.firstIndex(where: {$0.id == card.id}) {
             delay = Double(index) * (CardConstants.totalDealDuration / Double(game.cards.count))
@@ -162,8 +200,8 @@ struct CardView: View {
                     ForEach(1...card.multiple, id: \.self) { i in
                         switch card.shape {
                         case .oval:
-                                Capsule().strokeBorder(card.color, lineWidth: 3)
-                                .background(Capsule().fill(card.color).opacity(Double(card.opacity)))
+                                Capsule().strokeBorder(card.isMatched ? Color.pink : card.color, lineWidth: 3)
+                                .background(Capsule().fill(card.isMatched ? Color.pink : card.color).opacity(Double(card.opacity)))
                         case .diamond:
                             Diamond().stroke(card.color, lineWidth: 3)
                                 .background(Diamond().fill(card.color).opacity(Double(card.opacity)))
@@ -178,13 +216,13 @@ struct CardView: View {
                         .frame(width: geometry.size.width - 30, height: (geometry.size.height - 40) / 3)
                 }.padding(10)
                 }
-                Text(card.content)
+                Text("")
                     .rotationEffect(Angle.degrees(card.isMatched ? 360 : 0))
                     .animation(Animation.easeInOut)
                     .font(Font.system(size: DrawingConstants.fontSize))
                     .scaleEffect(scale(thatFits: geometry.size))
             }
-        .cardify(isFaceUp: true, isSelected: card.isSelected, cardColor: card.color)
+        .cardify(isFaceUp: true, isSelected: card.isSelected, cardColor: card.color, unMatched: card.unMatched)
         }
     }
     

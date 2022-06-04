@@ -16,6 +16,7 @@ struct SetModel<CardContent> where CardContent: Equatable {
     }
     private(set) var score: Int = 0
     private(set) var hand: Array<Card>
+    private(set) var discarded: Array<Card>
     
     private(set) var selection: Array<Card>
     private(set) var lastCard = 11
@@ -69,13 +70,24 @@ struct SetModel<CardContent> where CardContent: Equatable {
                     countMatch = true
                 }
                 if countMatch, shapeMatch, opacityMatch, colorMatch {
-                    print("validSet")
                     for selectedCard in selection {
                         if let handIndex = hand.firstIndex(where: {$0.id == selectedCard.id}) {
                             if let selectionIndex = selection.firstIndex(where: {$0.id == selectedCard.id}) {
+                                var thisCard = hand[handIndex]
+                                thisCard.isDiscarded = true
+                                thisCard.color = Color.pink
+                                thisCard.isMatched = true
                                 hand.remove(at: handIndex)
                                 selection.remove(at: selectionIndex)
+                                discarded.append(thisCard)
                             }
+                        }
+                    }
+                } else {
+                    for selectedCard in selection {
+                        if let handIndex = hand.firstIndex(where: {$0.id == selectedCard.id}) {
+                            var thisCard = hand[handIndex]
+                            hand[handIndex].unMatched = true
                         }
                     }
                 }
@@ -83,26 +95,30 @@ struct SetModel<CardContent> where CardContent: Equatable {
         } else {
             removeFromSelection(card)
             hand[thiscard!].isSelected = false
+            hand[thiscard!].unMatched = false
+            for selectedCard in selection {
+                if let handIndex = hand.firstIndex(where: {$0.id == selectedCard.id}) {
+                    var thisCard = hand[handIndex]
+                    hand[handIndex].unMatched = false
+                }
+            }
         }
     }
     
     mutating func addToSelection(_ card: Card) {
         selection.append(card)
-        print(selection)
     }
 
     mutating func addToHand() {
         if ((lastCard) < 81 && hand.count < 36) {
             hand.append(cards[lastCard])
             lastCard = lastCard + 1
-            print(lastCard)
         }
     }
     
     mutating func removeFromSelection(_ card: Card) {
         if let chosenIndex = selection.firstIndex(where: {$0.id == card.id}) {
             selection.remove(at: chosenIndex)
-            print(selection)
         }
     }
     
@@ -114,6 +130,7 @@ struct SetModel<CardContent> where CardContent: Equatable {
     init(createCardContent: (Int) -> CardContent?) {
         cards = []
         hand = []
+        discarded = []
         selection = []
         var cardIndex = 0
         
@@ -150,10 +167,13 @@ struct SetModel<CardContent> where CardContent: Equatable {
                 stopUsingBonusTime()
             }
         }
+
+        var unMatched = false
+        var isDiscarded = false
         var seen = false
         let shape: ShapeType
         let opacity: Float
-        let color: Color
+        var color: Color
         let multiple: Int
         let content: CardContent
         let id: Int
@@ -212,15 +232,15 @@ struct SetModel<CardContent> where CardContent: Equatable {
     }
 }
 
-//extension Array {
-//    var oneAndOnly: Element? {
-//        if count == 1 {
-//            return first
-//        } else {
-//            return nil
-//        }
-//    }
-//}
+extension Array {
+    var oneAndOnly: Element? {
+        if count == 1 {
+            return first
+        } else {
+            return nil
+        }
+    }
+}
 
 enum ShapeType {
     case oval, diamond, squiggle
